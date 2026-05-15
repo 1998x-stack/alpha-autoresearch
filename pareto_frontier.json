@@ -126,36 +126,106 @@
       "formula": ""
     },
     {
-      "name": "decay_range",
-      "rank_ic": -0.027340993123731994,
-      "ic_ir": -0.1304212474249355,
-      "turnover_stability": 0.8137038121208995,
+      "name": "ts_rank_returns",
+      "rank_ic": 0.02262256955443265,
+      "ic_ir": 0.11635941735884185,
+      "turnover_stability": 0.6754032963298597,
       "description": "",
       "commit": "",
-      "added": "2026-05-15T17:00:48.853229",
+      "added": "2026-05-15T22:21:02.054007",
       "formula": ""
     },
     {
-      "name": "decay_range",
-      "rank_ic": -0.03263119391774481,
-      "ic_ir": -0.20783921304306885,
-      "turnover_stability": 0.792202657268908,
+      "name": "decay_returns",
+      "rank_ic": -0.013381770779093066,
+      "ic_ir": -0.08794270539696551,
+      "turnover_stability": 0.6561541874777059,
       "description": "",
       "commit": "",
-      "added": "2026-05-15T18:13:02.998895",
+      "added": "2026-05-15T22:21:02.055810",
       "formula": ""
     },
     {
-      "name": "momentum_5d",
-      "rank_ic": -0.01044541042477852,
-      "ic_ir": -0.05418758899362296,
-      "turnover_stability": 0.9923682255437617,
+      "name": "range_vol_adj",
+      "rank_ic": -0.04136814255688488,
+      "ic_ir": -0.2099781191357323,
+      "turnover_stability": 0.7851962427745665,
       "description": "",
       "commit": "",
-      "added": "2026-05-15T18:31:22.378029",
+      "added": "2026-05-15T22:21:02.056170",
+      "formula": ""
+    },
+    {
+      "name": "sharpe_ret",
+      "rank_ic": -0.019758475381344027,
+      "ic_ir": -0.12410305514365881,
+      "turnover_stability": 0.6661354831091395,
+      "description": "",
+      "commit": "",
+      "added": "2026-05-15T22:21:02.056521",
+      "formula": ""
+    },
+    {
+      "name": "adv_term_struct",
+      "rank_ic": -0.042649052783155776,
+      "ic_ir": -0.21599403588651991,
+      "turnover_stability": 0.9410059205776173,
+      "description": "",
+      "commit": "",
+      "added": "2026-05-15T22:21:02.056886",
+      "formula": ""
+    },
+    {
+      "name": "close_open_decay",
+      "rank_ic": -0.023272310697406436,
+      "ic_ir": -0.14472974603506877,
+      "turnover_stability": 0.6624331880571825,
+      "description": "",
+      "commit": "",
+      "added": "2026-05-15T22:21:02.057232",
+      "formula": ""
+    },
+    {
+      "name": "cs_zscore_vol",
+      "rank_ic": -0.053653561451967084,
+      "ic_ir": -0.27564144134092716,
+      "turnover_stability": 0.9220106859205777,
+      "description": "",
+      "commit": "",
+      "added": "2026-05-15T22:21:02.057569",
+      "formula": ""
+    },
+    {
+      "name": "combo_range_vwap",
+      "rank_ic": -0.023557248604736902,
+      "ic_ir": -0.10551193509546526,
+      "turnover_stability": 0.8430343482202539,
+      "description": "",
+      "commit": "",
+      "added": "2026-05-15T22:21:02.057928",
+      "formula": ""
+    },
+    {
+      "name": "hl_spread_chg",
+      "rank_ic": -0.03993286989217178,
+      "ic_ir": -0.21346353094800632,
+      "turnover_stability": 0.7972993244115396,
+      "description": "",
+      "commit": "",
+      "added": "2026-05-15T22:21:02.058291",
+      "formula": ""
+    },
+    {
+      "name": "open_vwap_dev",
+      "rank_ic": 0.020111068945233557,
+      "ic_ir": 0.09155269100218585,
+      "turnover_stability": 0.9940245487364621,
+      "description": "",
+      "commit": "",
+      "added": "2026-05-15T22:21:02.058666",
       "formula": ""
     }
   ],
-  "dominated_count": 29,
-  "total_experiments": 43
+  "dominated_count": 33,
+  "total_experiments": 53
 }

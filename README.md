@@ -8,8 +8,8 @@
 <p align="center">
   <img src="https://img.shields.io/badge/python-3.8+-3776AB?logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/tests-31_passed-10B981" alt="Tests">
-  <img src="https://img.shields.io/badge/factors-38_evaluated-7C3AED" alt="Factors">
-  <img src="https://img.shields.io/badge/frontier-14_non--dominated-F59E0B" alt="Frontier">
+  <img src="https://img.shields.io/badge/factors-48_evaluated-7C3AED" alt="Factors">
+  <img src="https://img.shields.io/badge/frontier-19_non--dominated-F59E0B" alt="Frontier">
   <img src="https://img.shields.io/badge/license-MIT-00A858" alt="License">
 </p>
 
@@ -84,22 +84,17 @@ These form a **Pareto frontier** — you can't maximize all three simultaneously
 
 ## 🔬 Experiment Results
 
-30 iterations, 38 factors generated, **0 crashes**.
-
-<p align="center">
-  <img src="assets/pareto_frontier.png" width="85%" alt="Pareto Frontier">
-</p>
-<p align="center">
-  <img src="assets/top_factors.png" width="85%" alt="Top Factors">
-</p>
+30+ iterations, 48 factors generated, **0 crashes**.
 
 | Highlight | Factor | Value |
 |-----------|--------|-------|
 | 🥇 Best predictor | `hl_range` | IC = 0.0581 |
+| 🥇 Strongest new | `cs_zscore_vol` | IC = 0.0537, TO = 0.922 |
 | 🥈 Most consistent | `ts_rank_vol` | IR = 0.49 |
-| 🥉 Cheapest to trade | `vwap_diff` | Turnover = 0.991 |
+| 🥉 Cheapest to trade | `open_vwap_dev` | TO = 0.994 |
 
 📖 **[Full Experiment Report (Chinese)](docs/REPORT.md)**
+📖 **[Latest Discovery Report](docs/DISCOVERY_REPORT.md)** — 10 new factors, 4 frontier domination wins
 
 ---
 

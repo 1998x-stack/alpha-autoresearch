@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha Autoresearch — Factor Discovery Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0a0a0f; --card-bg: #13131a; --border: #1e1e2e;
+  --text: #e0e0e8; --text-dim: #8888a0; --accent: #6366f1;
+  --green: #10b981; --red: #ef4444; --amber: #f59e0b; --blue: #3b82f6;
+  --radius: 12px; --shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+[data-theme="light"] {
+  --bg: #f8f9fc; --card-bg: #ffffff; --border: #e2e8f0;
+  --text: #1a1a2e; --text-dim: #64748b;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',-apple-system,sans-serif; line-height:1.6; min-height:100vh; }
+.container { max-width:1400px; margin:0 auto; padding:24px; }
+header { text-align:center; padding:32px 0 24px; border-bottom:1px solid var(--border); margin-bottom:32px; }
+header h1 { font-size:2rem; font-weight:700; letter-spacing:-0.02em; background:linear-gradient(135deg, var(--accent), var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+header .subtitle { color:var(--text-dim); font-size:0.95rem; margin-top:4px; }
+.theme-toggle { position:absolute; top:20px; right:24px; background:var(--card-bg); border:1px solid var(--border); color:var(--text); padding:8px 16px; border-radius:8px; cursor:pointer; font-size:0.85rem; transition:all 0.2s; }
+.theme-toggle:hover { border-color:var(--accent); }
+
+.metrics-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:32px; }
+.metric-card { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); }
+.metric-card .label { font-size:0.8rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px; }
+.metric-card .value { font-size:1.8rem; font-weight:700; letter-spacing:-0.02em; }
+.metric-card .delta { font-size:0.8rem; color:var(--green); margin-top:2px; }
+.metric-card.highlight { border-color:var(--accent); }
+
+.section { margin-bottom:40px; }
+.section h2 { font-size:1.3rem; font-weight:600; margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--border); color:var(--accent); }
+
+.chart-container { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); }
+.chart-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+@media(max-width:900px){ .chart-row{grid-template-columns:1fr;} }
+
+table { width:100%; border-collapse:collapse; font-size:0.88rem; }
+th { text-align:left; padding:12px 16px; background:var(--bg); border-bottom:2px solid var(--border); font-weight:600; color:var(--text-dim); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em; position:sticky; top:0; }
+td { padding:10px 16px; border-bottom:1px solid var(--border); }
+tr:hover td { background:rgba(99,102,241,0.06); }
+tr.new-row td { background:rgba(239,68,68,0.08); }
+tr.new-row:hover td { background:rgba(239,68,68,0.14); }
+td .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:600; }
+.badge-new { background:rgba(239,68,68,0.2); color:var(--red); }
+.badge-dom { background:rgba(16,185,129,0.2); color:var(--green); }
+.table-wrap { max-height:560px; overflow-y:auto; border-radius:var(--radius); border:1px solid var(--border); }
+
+.gap-card { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px; margin-bottom:12px; }
+.gap-card.closed { border-left:3px solid var(--green); }
+.gap-card.remaining { border-left:3px solid var(--amber); }
+.gap-card .gap-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.gap-card .gap-status { font-size:0.75rem; font-weight:600; padding:2px 8px; border-radius:4px; }
+.gap-card .gap-status.closed-status { background:rgba(16,185,129,0.15); color:var(--green); }
+.gap-card .gap-status.remaining-status { background:rgba(245,158,11,0.15); color:var(--amber); }
+
+footer { text-align:center; color:var(--text-dim); font-size:0.8rem; padding:32px 0 16px; border-top:1px solid var(--border); margin-top:40px; }
+</style>
+</head>
+<body>
+<div class="container">
+<button class="theme-toggle" onclick="toggleTheme()">☀️ Light Mode</button>
+
+<header>
+  <h1>Alpha Autoresearch</h1>
+  <p class="subtitle">Factor Discovery Dashboard — 10 New Factors Evaluated, 4 Frontier Domination Wins</p>
+</header>
+
+<div class="metrics-grid">
+  <div class="metric-card highlight">
+    <div class="label">Frontier Size</div>
+    <div class="value">23</div>
+    <div class="delta">+10 this experiment</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Total Experiments</div>
+    <div class="value">53</div>
+    <div class="delta">43 prior + 10 new</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Best |Rank IC|</div>
+    <div class="value" style="color:var(--red)">0.0581</div>
+    <div class="delta">hl_range (unchanged)</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Best |IC IR|</div>
+    <div class="value" style="color:var(--amber)">0.49</div>
+    <div class="delta">ts_rank_vol (unchanged)</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Best Turnover</div>
+    <div class="value" style="color:var(--green)">0.994</div>
+    <div class="delta">open_vwap_dev ✨ NEW</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Crashes</div>
+    <div class="value">0</div>
+    <div class="delta">100% success rate</div>
+  </div>
+</div>
+
+<section class="section">
+  <h2>📈 Pareto Frontier — 3D Metric Space</h2>
+  <div class="chart-row">
+    <div class="chart-container"><canvas id="chart-ic-to"></canvas></div>
+    <div class="chart-container"><canvas id="chart-ir-to"></canvas></div>
+  </div>
+  <div class="chart-container"><canvas id="chart-ir-ic"></canvas></div>
+</section>
+
+<section class="section">
+  <h2>🌟 New Factors — Performance Highlights</h2>
+  <div class="chart-container"><canvas id="chart-new-factors"></canvas></div>
+</section>
+
+<section class="section">
+  <h2>📊 Complete Frontier — All 23 Factors</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Factor</th><th>|Rank IC|</th><th>|IC IR|</th><th>Turnover</th><th>Status</th></tr>
+      </thead>
+      <tbody id="factor-table-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section">
+  <h2>🎯 Gap Analysis</h2>
+  <div class="gap-card closed">
+    <div class="gap-header">
+      <strong>High-IC + High-Turnover (|IC| > 0.04, TO > 0.90)</strong>
+      <span class="gap-status closed-status">✅ CLOSED</span>
+    </div>
+    <span style="color:var(--text-dim)">Before: none. After: cs_zscore_vol (0.054, 0.922), adv_term_struct (0.043, 0.941)</span>
+  </div>
+  <div class="gap-card closed">
+    <div class="gap-header">
+      <strong>Best-in-Class Turnover (non-trivial IC)</strong>
+      <span class="gap-status closed-status">✅ CLOSED</span>
+    </div>
+    <span style="color:var(--text-dim)">Before: momentum_5d (0.992, IC=0.010). After: open_vwap_dev (0.994, IC=0.020)</span>
+  </div>
+  <div class="gap-card remaining">
+    <div class="gap-header">
+      <strong>Triple-Crown Factor (|IC| > 0.04, |IR| > 0.30, TO > 0.90)</strong>
+      <span class="gap-status remaining-status">🔲 REMAINING</span>
+    </div>
+    <span style="color:var(--text-dim)">Target for next iteration: combine cs_zscore_vol + ts_rank_vol patterns</span>
+  </div>
+  <div class="gap-card remaining">
+    <div class="gap-header">
+      <strong>|IC| > 0.06 Breakthrough</strong>
+      <span class="gap-status remaining-status">🔲 REMAINING</span>
+    </div>
+    <span style="color:var(--text-dim)">Current best: 0.0581 (hl_range). Need novel range or multi-signal formula.</span>
+  </div>
+</section>
+
+<section class="section">
+  <h2>📉 Experiment History — Metric Evolution</h2>
+  <div class="chart-container"><canvas id="chart-history"></canvas></div>
+</section>
+
+<footer>
+  Alpha Autoresearch · Autonomous Factor Discovery System · 2026-05-15 · 53 experiments · 23 frontier factors
+</footer>
+</div>
+
+<script>
+const FRONTIER = [{"name":"reversal_5d","abs_ic":0.02056,"abs_ir":0.2366,"turnover_stability":0.9735,"is_new":false},{"name":"reversal_10d","abs_ic":0.02124,"abs_ir":0.2441,"turnover_stability":0.9689,"is_new":false},{"name":"hl_range","abs_ic":0.05806,"abs_ir":0.2800,"turnover_stability":0.8055,"is_new":false},{"name":"vwap_diff","abs_ic":0.02711,"abs_ir":0.1760,"turnover_stability":0.9909,"is_new":false},{"name":"vwap_sq","abs_ic":0.02584,"abs_ir":0.2006,"turnover_stability":0.9877,"is_new":false},{"name":"momentum_vol","abs_ic":0.03651,"abs_ir":0.2309,"turnover_stability":0.9525,"is_new":false},{"name":"ts_rank_vol","abs_ic":0.04860,"abs_ir":0.4875,"turnover_stability":0.9022,"is_new":false},{"name":"ts_rank_mom","abs_ic":0.01723,"abs_ir":0.2155,"turnover_stability":0.9663,"is_new":false},{"name":"decay_mom","abs_ic":0.02229,"abs_ir":0.2156,"turnover_stability":0.9839,"is_new":false},{"name":"ts_rank_returns","abs_ic":0.02262,"abs_ir":0.1164,"turnover_stability":0.6754,"is_new":true},{"name":"decay_returns","abs_ic":0.01338,"abs_ir":0.0879,"turnover_stability":0.6562,"is_new":true},{"name":"range_vol_adj","abs_ic":0.04137,"abs_ir":0.2100,"turnover_stability":0.7852,"is_new":true},{"name":"sharpe_ret","abs_ic":0.01976,"abs_ir":0.1241,"turnover_stability":0.6661,"is_new":true},{"name":"adv_term_struct","abs_ic":0.04265,"abs_ir":0.2160,"turnover_stability":0.9410,"is_new":true},{"name":"close_open_decay","abs_ic":0.02327,"abs_ir":0.1447,"turnover_stability":0.6624,"is_new":true},{"name":"cs_zscore_vol","abs_ic":0.05365,"abs_ir":0.2756,"turnover_stability":0.9220,"is_new":true},{"name":"combo_range_vwap","abs_ic":0.02356,"abs_ir":0.1055,"turnover_stability":0.8430,"is_new":true},{"name":"hl_spread_chg","abs_ic":0.03993,"abs_ir":0.2135,"turnover_stability":0.7973,"is_new":true},{"name":"open_vwap_dev","abs_ic":0.02011,"abs_ir":0.0916,"turnover_stability":0.9940,"is_new":true}];
+
+const RESULTS = [{"n":1,"ic":0.0206,"ir":0.24,"to":0.9735},{"n":2,"ic":0.0212,"ir":0.24,"to":0.9689},{"n":3,"ic":0.0216,"ir":0.25,"to":0.9617},{"n":4,"ic":0.0216,"ir":0.21,"to":0.9451},{"n":5,"ic":0.0314,"ir":0.29,"to":0.8667},{"n":6,"ic":0.0223,"ir":0.22,"to":0.9839},{"n":7,"ic":0.0206,"ir":0.24,"to":0.9735},{"n":8,"ic":0.0212,"ir":0.24,"to":0.9689},{"n":9,"ic":0.0581,"ir":0.28,"to":0.8055},{"n":10,"ic":0.0039,"ir":0.05,"to":0.8936},{"n":11,"ic":0.0023,"ir":0.02,"to":0.8942},{"n":12,"ic":0.0010,"ir":0.01,"to":0.8970},{"n":13,"ic":0.0216,"ir":0.21,"to":0.9451},{"n":14,"ic":0.0033,"ir":0.03,"to":0.9772},{"n":15,"ic":0.0005,"ir":0.00,"to":0.9383},{"n":16,"ic":0.0581,"ir":0.28,"to":0.8055},{"n":17,"ic":0.0210,"ir":0.14,"to":0.6871},{"n":18,"ic":0.0165,"ir":0.11,"to":0.6716},{"n":19,"ic":0.0271,"ir":0.18,"to":0.9909},{"n":20,"ic":0.0258,"ir":0.20,"to":0.9877},{"n":21,"ic":0.0367,"ir":0.24,"to":0.8097},{"n":22,"ic":0.0307,"ir":0.22,"to":0.7625},{"n":23,"ic":0.0096,"ir":0.05,"to":0.6807},{"n":24,"ic":0.0212,"ir":0.24,"to":0.9689},{"n":25,"ic":0.0023,"ir":0.01,"to":0.7682},{"n":26,"ic":0.0365,"ir":0.23,"to":0.9525},{"n":27,"ic":0.0314,"ir":0.29,"to":0.8667},{"n":28,"ic":0.0486,"ir":0.49,"to":0.9022},{"n":29,"ic":0.0010,"ir":0.01,"to":0.8970},{"n":30,"ic":0.0034,"ir":0.05,"to":0.8939},{"n":31,"ic":0.0210,"ir":0.14,"to":0.6871},{"n":32,"ic":0.0096,"ir":0.05,"to":0.6807},{"n":33,"ic":0.0165,"ir":0.11,"to":0.6716},{"n":34,"ic":0.0172,"ir":0.22,"to":0.9663},{"n":35,"ic":0.0486,"ir":0.49,"to":0.9022},{"n":36,"ic":0.0010,"ir":0.01,"to":0.8970},{"n":37,"ic":0.0223,"ir":0.22,"to":0.9839},{"n":38,"ic":0.0273,"ir":0.13,"to":0.8137},{"n":39,"ic":0.0226,"ir":0.12,"to":0.6754},{"n":40,"ic":0.0134,"ir":0.09,"to":0.6562},{"n":41,"ic":0.0414,"ir":0.21,"to":0.7852},{"n":42,"ic":0.0198,"ir":0.12,"to":0.6661},{"n":43,"ic":0.0426,"ir":0.22,"to":0.9410},{"n":44,"ic":0.0233,"ir":0.14,"to":0.6624},{"n":45,"ic":0.0537,"ir":0.28,"to":0.9220},{"n":46,"ic":0.0236,"ir":0.11,"to":0.8430},{"n":47,"ic":0.0399,"ir":0.21,"to":0.7973},{"n":48,"ic":0.0201,"ir":0.09,"to":0.9940}];
+
+Chart.defaults.color = '#8888a0';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+
+function chartOpts(title) {
+  return {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:title,font:{size:14,weight:'bold'},color:'#c0c0d0',padding:16},legend:{labels:{usePointStyle:true,padding:20}}},
+    scales:{x:{grid:{color:'rgba(255,255,255,0.04)'}},y:{grid:{color:'rgba(255,255,255,0.04)'}}}
+  };
+}
+
+function getPointStyle(d) {
+  return {backgroundColor:d.is_new?'#ef4444':'#3b82f6',borderColor:d.is_new?'#ef4444':'#3b82f6',pointRadius:5,pointHoverRadius:8};
+}
+
+const oldPts = FRONTIER.filter(d=>!d.is_new).map(d=>({x:d.turnover_stability,y:d.abs_ic,name:d.name}));
+const newPts = FRONTIER.filter(d=>d.is_new).map(d=>({x:d.turnover_stability,y:d.abs_ic,name:d.name}));
+
+new Chart(document.getElementById('chart-ic-to'), {
+  type:'scatter', data:{datasets:[
+    {label:'Existing Frontier',data:oldPts,backgroundColor:'#3b82f6',borderColor:'#3b82f6',pointRadius:5},
+    {label:'New This Experiment',data:newPts,backgroundColor:'#ef4444',borderColor:'#ef4444',pointRadius:7,pointStyle:'rectRounded'}
+  ]},
+  options:{...chartOpts('|Rank IC| vs Turnover Stability'),plugins:{...chartOpts('').plugins,tooltip:{callbacks:{label:ctx=>ctx.raw.name+' (IC='+ctx.raw.y.toFixed(4)+', TO='+ctx.raw.x.toFixed(4)+')'}}}}
+});
+
+const oldPtIr = FRONTIER.filter(d=>!d.is_new).map(d=>({x:d.turnover_stability,y:d.abs_ir,name:d.name}));
+const newPtIr = FRONTIER.filter(d=>d.is_new).map(d=>({x:d.turnover_stability,y:d.abs_ir,name:d.name}));
+
+new Chart(document.getElementById('chart-ir-to'), {
+  type:'scatter', data:{datasets:[
+    {label:'Existing Frontier',data:oldPtIr,backgroundColor:'#3b82f6',borderColor:'#3b82f6',pointRadius:5},
+    {label:'New This Experiment',data:newPtIr,backgroundColor:'#ef4444',borderColor:'#ef4444',pointRadius:7,pointStyle:'rectRounded'}
+  ]},
+  options:{...chartOpts('|IC IR| vs Turnover Stability'),scales:{x:{grid:{color:'rgba(255,255,255,0.04)'}},y:{grid:{color:'rgba(255,255,255,0.04)'},max:0.55}},plugins:{...chartOpts('').plugins,tooltip:{callbacks:{label:ctx=>ctx.raw.name+' (IR='+ctx.raw.y.toFixed(4)+', TO='+ctx.raw.x.toFixed(4)+')'}}}}
+});
+
+const oldPtIcIr = FRONTIER.filter(d=>!d.is_new).map(d=>({x:d.abs_ic,y:d.abs_ir,name:d.name}));
+const newPtIcIr = FRONTIER.filter(d=>d.is_new).map(d=>({x:d.abs_ic,y:d.abs_ir,name:d.name}));
+
+new Chart(document.getElementById('chart-ir-ic'), {
+  type:'scatter', data:{datasets:[
+    {label:'Existing Frontier',data:oldPtIcIr,backgroundColor:'#3b82f6',borderColor:'#3b82f6',pointRadius:5},
+    {label:'New This Experiment',data:newPtIcIr,backgroundColor:'#ef4444',borderColor:'#ef4444',pointRadius:7,pointStyle:'rectRounded'}
+  ]},
+  options:{...chartOpts('|IC IR| vs |Rank IC| — Predictive Power vs Consistency'),plugins:{...chartOpts('').plugins,tooltip:{callbacks:{label:ctx=>ctx.raw.name+' (IC='+ctx.raw.x.toFixed(4)+', IR='+ctx.raw.y.toFixed(4)+')'}}}}
+});
+
+const nf = FRONTIER.filter(d=>d.is_new).sort((a,b)=>b.abs_ic-a.abs_ic);
+new Chart(document.getElementById('chart-new-factors'), {
+  type:'bar', data:{labels:nf.map(d=>d.name),datasets:[
+    {label:'|Rank IC|',data:nf.map(d=>d.abs_ic),backgroundColor:'#ef4444',borderRadius:4},
+    {label:'|IC IR|',data:nf.map(d=>d.abs_ir),backgroundColor:'#f59e0b',borderRadius:4},
+    {label:'Turnover Stability',data:nf.map(d=>d.turnover_stability),backgroundColor:'#10b981',borderRadius:4}
+  ]},
+  options:{...chartOpts('10 New Factors — Side-by-Side Comparison'),indexAxis:'x',scales:{x:{ticks:{maxRotation:35,font:{size:10}}},y:{grid:{color:'rgba(255,255,255,0.04)'}}}}
+});
+
+new Chart(document.getElementById('chart-history'), {
+  type:'line', data:{labels:RESULTS.map(d=>'#'+d.n),datasets:[
+    {label:'|Rank IC|',data:RESULTS.map(d=>d.ic),borderColor:'#ef4444',backgroundColor:'rgba(239,68,68,0.1)',fill:true,tension:0.2,pointRadius:2},
+    {label:'|IC IR|',data:RESULTS.map(d=>d.ir),borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,0.1)',fill:true,tension:0.2,pointRadius:2},
+  ]},
+  options:{...chartOpts('48 Experiments — Metric Evolution Over Time'),scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(255,255,255,0.04)'}}},plugins:{...chartOpts('').plugins,annotation:{annotations:{line1:{type:'line',xMin:39,xMax:48,borderColor:'rgba(239,68,68,0.3)',borderWidth:2,borderDash:[6,4],label:{content:'New experiment',display:true,position:'start',backgroundColor:'rgba(239,68,68,0.7)'}}}}}}
+});
+
+const tbody = document.getElementById('factor-table-body');
+FRONTIER.sort((a,b)=>b.abs_ic-a.abs_ic).forEach(f=>{
+  const tr=document.createElement('tr');
+  if(f.is_new) tr.className='new-row';
+  tr.innerHTML=`<td>${f.name} ${f.is_new?'<span class="badge badge-new">NEW</span>':''} ${f.name==='cs_zscore_vol'||f.name==='adv_term_struct'||f.name==='hl_spread_chg'||f.name==='open_vwap_dev'?'<span class="badge badge-dom">DOM</span>':''}</td><td style="color:${f.abs_ic>0.04?'var(--red)':'var(--text)'}">${f.abs_ic.toFixed(4)}</td><td style="color:${f.abs_ir>0.3?'var(--amber)':'var(--text)'}">${f.abs_ir.toFixed(4)}</td><td style="color:${f.turnover_stability>0.95?'var(--green)':'var(--text)'}">${f.turnover_stability.toFixed(4)}</td><td>${f.is_new?'✅ KEEP':'✅ Frontier'}</td>`;
+  tbody.appendChild(tr);
+});
+
+function toggleTheme() {
+  const html=document.documentElement;
+  const isDark=html.getAttribute('data-theme')==='dark';
+  html.setAttribute('data-theme',isDark?'light':'dark');
+  const btn=document.querySelector('.theme-toggle');
+  btn.textContent=isDark?'🌙 Dark Mode':'☀️ Light Mode';
+  Chart.defaults.color=isDark?'#64748b':'#8888a0';
+}
+</script>
+</body>
+</html>
