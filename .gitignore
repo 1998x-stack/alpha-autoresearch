@@ -6,3 +6,4 @@ results.tsv
 .pytest_cache/
 docs/superpowers/
 .venv/
+.DS_Store
