@@ -3,88 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Alpha Autoresearch — Project Visualization</title>
-<link rel="stylesheet" href="assets/base-dark.css">
+<title>Alpha Autoresearch</title>
 <style>
 :root {
-  --c1:#1D9E75; --c1d:#0F6E56;       /* green — RankIC */
-  --c2:#378ADD; --c2d:#185FA5;        /* blue — IC IR */
-  --c3:#C9612E; --c3d:#8B3A1A;        /* orange — Turnover */
-  --c4:#7C3AED; --c4d:#541FAD;        /* purple — Pareto */
-  --c5:#EAB308; --c5d:#A16207;        /* amber — Architecture */
+  --bg:#0d1117; --bg2:#161b22; --bg3:#21262d; --bg4:#2d333b;
+  --border:rgba(255,255,255,.08); --border2:rgba(255,255,255,.18);
+  --text:#e6edf3; --muted:#7d8590; --faint:#3d444d;
+  --c1:#28c840; --c2:#378add; --c3:#e0763b; --c4:#a371f7; --c5:#eab308;
+  --font:system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+  --mono:'SF Mono','Cascadia Code',Consolas,monospace;
 }
-.hero h1 em {
-  background:linear-gradient(90deg,var(--c1),var(--c2),var(--c4));
-}
-.tag-c1 { color:var(--c1); border-color:rgba(29,158,117,.4); background:rgba(29,158,117,.08); }
-.tag-c2 { color:var(--c2); border-color:rgba(55,138,221,.4); background:rgba(55,138,221,.08); }
-.tag-c3 { color:var(--c3); border-color:rgba(201,97,46,.4); background:rgba(201,97,46,.08); }
-.tag-c4 { color:var(--c4); border-color:rgba(124,58,237,.4); background:rgba(124,58,237,.08); }
-.tag-c5 { color:var(--c5); border-color:rgba(234,179,8,.4); background:rgba(234,179,8,.08); }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.65;padding-bottom:80px}
+a{color:inherit;text-decoration:none}
 
-/* section accent borders */
-#s2 .layer-def { border-left-color:var(--c1); }
-#s3 .layer-def { border-left-color:var(--c2); }
-#s4 .layer-def { border-left-color:var(--c3); }
-#s5 .layer-def { border-left-color:var(--c4); }
+nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;height:52px;font-size:13px}
+.nav-inner{max-width:1160px;width:100%;margin:0 auto;padding:0 40px;display:flex;align-items:center;gap:6px}
+.nav-brand{font-weight:600;font-size:14px;color:var(--text);margin-right:20px;white-space:nowrap}
+.nav-brand span{color:var(--muted);font-weight:400}
+nav a.nl{padding:4px 10px;border-radius:6px;color:var(--muted);transition:all .15s}
+nav a.nl:hover{color:var(--text);background:var(--bg3)}
 
-/* table highlight */
-.t-high { color:var(--c1); font-weight:700; }
-.t-med  { color:var(--c2); }
-.t-faint { color:var(--faint); }
+.page{max-width:1160px;margin:0 auto;padding:0 40px}
 
-/* image wrapper */
-.img-full { width:100%; border-radius:10px; border:1px solid var(--border); margin:16px 0; }
-.img-half { width:49%; border-radius:10px; border:1px solid var(--border); }
+.hero{padding:80px 0 56px;border-bottom:1px solid var(--border)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:var(--bg3);border:1px solid var(--border2);font-size:12px;color:var(--muted);margin-bottom:20px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--c1)}
+.hero h1{font-size:42px;font-weight:700;letter-spacing:-.025em;line-height:1.2;margin-bottom:16px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c4));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:16px;color:var(--muted);max-width:660px;line-height:1.8;margin-bottom:32px}
 
-/* metric big number */
-.metric-val {
-  font-size: 42px; font-weight:700; font-family:var(--mono);
-  letter-spacing:-.02em; line-height:1; margin-bottom:6px;
-}
-.metric-label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+.tag-row{display:flex;flex-wrap:wrap;gap:8px}
+.ltag{display:inline-block;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:600;letter-spacing:.04em;border:1px solid;cursor:default}
+.t1{color:var(--c1);border-color:rgba(40,200,64,.4);background:rgba(40,200,64,.08)}
+.t2{color:var(--c2);border-color:rgba(55,138,221,.4);background:rgba(55,138,221,.08)}
+.t3{color:var(--c3);border-color:rgba(224,118,59,.4);background:rgba(224,118,59,.08)}
+.t4{color:var(--c4);border-color:rgba(163,113,247,.4);background:rgba(163,113,247,.08)}
+.t5{color:var(--c5);border-color:rgba(234,179,8,.4);background:rgba(234,179,8,.08)}
 
-/* formula code */
-.formula {
-  font-family:var(--mono); font-size:13px; color:var(--c1);
-  background:var(--bg3); border-radius:6px; padding:4px 8px;
-  display:inline-block; margin-top:8px;
-}
+.flow{padding:56px 0;border-bottom:1px solid var(--border)}
+.flow-track{display:flex;align-items:stretch;gap:0}
+.flow-box{flex:1;min-width:0;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 14px;transition:border-color .2s,transform .15s}
+.flow-box:hover{border-color:var(--border2);transform:translateY(-2px)}
+.fb-tag{font-size:11px;font-weight:700;letter-spacing:.06em;margin-bottom:8px}
+.fb-name{font-size:14px;font-weight:600;margin-bottom:6px}
+.fb-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.fb-file{margin-top:14px;padding-top:12px;border-top:1px solid var(--faint);font-size:11px;font-family:var(--mono);color:var(--faint);line-height:1.8}
+.flow-arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0 8px;flex-shrink:0;min-width:60px}
+.arr-icon{font-size:20px;color:var(--faint)}
+.arr-text{font-size:10px;color:var(--faint);text-align:center;max-width:70px}
+
+.sec{padding:64px 0;border-bottom:1px solid var(--border)}
+.sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.sec-badge{font-size:13px;font-weight:700;padding:5px 14px;border-radius:8px;letter-spacing:.05em}
+.sec-title{font-size:26px;font-weight:700;letter-spacing:-.02em}
+.sec-desc{font-size:15px;color:var(--muted);line-height:1.8;max-width:820px;margin-bottom:32px;padding-left:18px;border-left:3px solid}
+
+.chart-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px;overflow-x:auto}
+.chart-title{font-size:14px;font-weight:600;margin-bottom:16px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.chart-wrap svg{display:block;width:100%}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+.card-title{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.big-num{font-size:36px;font-weight:700;font-family:var(--mono);line-height:1}
+.formula{font-family:var(--mono);font-size:12px;color:var(--c1);background:var(--bg3);border-radius:6px;padding:3px 8px;display:inline-block;margin-top:8px}
+
+.code-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.code-hdr{padding:8px 16px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.dot-r{width:10px;height:10px;border-radius:50%;background:#f8514966}
+.dot-y{width:10px;height:10px;border-radius:50%;background:#eab30866}
+.dot-g{width:10px;height:10px;border-radius:50%;background:#28c84066}
+.code-hdr span.txt{font-size:11px;color:var(--muted);margin-left:8px}
+pre{padding:20px 24px;font-family:var(--mono);font-size:13px;line-height:1.8;color:#c9d1d9;overflow-x:auto}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.str{color:#a5d6ff}.cm{color:#8b949e}.num{color:#79c0ff}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{border-bottom:2px solid var(--border2);text-align:left}
+th{padding:10px 12px;color:var(--muted);font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid var(--border);font-family:var(--mono)}
+td.name{font-weight:600}
+.hi{color:var(--c1);font-weight:700}
+
+footer{padding:48px 0;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)}
+footer a{color:var(--c2)}
+
+@media(max-width:768px){.grid3,.grid2{grid-template-columns:1fr}.flow-track{flex-direction:column;gap:12px}.flow-arrow{flex-direction:row;min-width:0}.hero h1{font-size:28px}}
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <span class="nav-brand">Alpha Autoresearch <span>· Project Visualization</span></span>
-    <a class="nl" href="#s1">Architecture</a>
-    <a class="nl" href="#s2">Metrics</a>
-    <a class="nl" href="#s3">Results</a>
-    <a class="nl" href="#s4">Frontier</a>
-    <a class="nl" href="#s5">Write</a>
+    <span class="nav-brand">Alpha Autoresearch <span>· Project</span></span>
+    <a class="nl" href="#arch">Architecture</a>
+    <a class="nl" href="#metrics">Metrics</a>
+    <a class="nl" href="#charts">Charts</a>
+    <a class="nl" href="#code">Code</a>
   </div>
 </nav>
 
 <div class="page">
 
-<!-- ═══ HERO ═══ -->
 <section class="hero">
   <div class="hero-badge"><span class="dot"></span>v0.1.0 · 31 Tests · 38 Factors · 14 Frontier</div>
   <h1>Autonomous Alpha Factor Research<br>for <em>Chinese A-Shares</em></h1>
   <p>AI agents invent, iterate, and optimize quantitative factors guided by Pareto frontier optimization — while you sleep. ~60 experiments per hour, zero human intervention.</p>
   <div class="tag-row">
-    <span class="ltag tag-c1">RankIC</span>
-    <span class="ltag tag-c2">IC IR</span>
-    <span class="ltag tag-c3">Turnover</span>
-    <span class="ltag tag-c4">Pareto Front</span>
-    <span class="ltag tag-c5">12 Operators</span>
+    <span class="ltag t1">RankIC</span><span class="ltag t2">IC IR</span><span class="ltag t3">Turnover</span>
+    <span class="ltag t4">Pareto Front</span><span class="ltag t5">12 Operators</span>
   </div>
 </section>
 
-<!-- ═══ FLOW ═══ -->
-<section class="flow" id="s1">
-  <div class="sec-label">System Architecture</div>
-  <h2 style="font-size:24px;font-weight:700;margin-bottom:28px">Three files. Infinite experiments.</h2>
+<!-- Architecture Flow -->
+<section class="flow" id="arch">
+  <h2 style="font-size:20px;font-weight:700;margin-bottom:24px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">System Architecture</h2>
   <div class="flow-track">
     <div class="flow-box">
       <div class="fb-tag" style="color:var(--c5)">Agent edits</div>
@@ -94,14 +130,14 @@
     </div>
     <div class="flow-arrow"><div class="arr-icon">▶</div><div class="arr-text">modify<br>& commit</div></div>
     <div class="flow-box">
-      <div class="fb-tag" style="color:var(--green)">Read-only</div>
+      <div class="fb-tag" style="color:var(--c1)">Read-only</div>
       <div class="fb-name">prepare.py</div>
       <div class="fb-sub">Auto-discover · evaluate 3 metrics · Pareto check · update archive</div>
       <div class="fb-file">uv run python prepare.py</div>
     </div>
     <div class="flow-arrow"><div class="arr-icon">▶</div><div class="arr-text">extract<br>results</div></div>
     <div class="flow-box">
-      <div class="fb-tag" style="color:var(--c4)">Persistent state</div>
+      <div class="fb-tag" style="color:var(--c4)">Persistent</div>
       <div class="fb-name">pareto_frontier.json</div>
       <div class="fb-sub">14 non-dominated factors · git-tracked · permanent research record</div>
       <div class="fb-file">factors that dominate on ≥1 metric</div>
@@ -109,177 +145,201 @@
   </div>
 </section>
 
-<!-- ═══ METRICS ═══ -->
-<section class="layer-sec" id="s2">
-  <div class="layer-hdr">
-    <span class="layer-id-badge" style="background:var(--c1d);color:var(--c1)">Three Metrics</span>
-  </div>
-  <div class="layer-title">First-Principles Evaluation</div>
-  <div class="layer-def">
-    A factor is only useful if it <strong>predicts returns</strong>, does so <strong>consistently</strong>, and is <strong>cheap to trade</strong>. These three dimensions cannot be maximized simultaneously — they form a Pareto frontier.
-  </div>
+<!-- Metrics -->
+<section class="sec" id="metrics">
+  <div class="sec-hdr"><span class="sec-badge" style="background:#0f6e56;color:var(--c1)">Three Metrics</span></div>
+  <div class="sec-title">First-Principles Evaluation</div>
+  <div class="sec-desc" style="border-left-color:var(--c1)">A factor is only useful if it <strong>predicts returns</strong>, does so <strong>consistently</strong>, and is <strong>cheap to trade</strong>. These three dimensions cannot be maximized simultaneously — they form a Pareto frontier.</div>
   <div class="grid3">
     <div class="card">
       <div class="card-title">Metric 1</div>
-      <div class="metric-val" style="color:var(--c1)">RankIC</div>
-      <div class="metric-label">Cross-Sectional Predictive Power</div>
+      <div class="big-num" style="color:var(--c1)">RankIC</div>
       <div class="formula">mean(Spearman(factor, fwd_return))</div>
-      <ul style="margin-top:12px">
-        <li>Range: [-1, 1] — higher |value| = stronger</li>
-        <li>Computed daily, averaged over 2020–2025</li>
-        <li>Uses absolute value for Pareto comparison</li>
-      </ul>
+      <p style="margin-top:12px;font-size:13px;color:var(--muted)">Cross-sectional predictive power. Computed daily, averaged over 2020–2025. Uses |value| for Pareto comparison.</p>
     </div>
     <div class="card">
       <div class="card-title">Metric 2</div>
-      <div class="metric-val" style="color:var(--c2)">IC IR</div>
-      <div class="metric-label">Prediction Stability</div>
+      <div class="big-num" style="color:var(--c2)">IC IR</div>
       <div class="formula">mean(IC) / std(IC)</div>
-      <ul style="margin-top:12px">
-        <li>Signal-to-noise ratio of daily predictions</li>
-        <li>IC=0.05 std=0.10 → IR=0.5 (noisy)</li>
-        <li>IC=0.04 std=0.04 → IR=1.0 (reliable)</li>
-      </ul>
+      <p style="margin-top:12px;font-size:13px;color:var(--muted)">Signal-to-noise ratio. IC=0.05 std=0.10 → IR=0.5 (noisy). IC=0.04 std=0.04 → IR=1.0 (reliable).</p>
     </div>
     <div class="card">
       <div class="card-title">Metric 3</div>
-      <div class="metric-val" style="color:var(--c3)">Turnover</div>
-      <div class="metric-label">Tradeability</div>
+      <div class="big-num" style="color:var(--c3)">Turnover</div>
       <div class="formula">1 − mean(|rank_t − rank_{t-1}|)</div>
-      <ul style="margin-top:12px">
-        <li>Range: [0, 1] — 1.0 = zero trading cost</li>
-        <li>0.5 = half the stocks change rank daily</li>
-        <li>High IC + high turnover = useless in practice</li>
-      </ul>
+      <p style="margin-top:12px;font-size:13px;color:var(--muted)">Tradeability. 1.0 = zero trading cost. 0.5 = half the stocks change rank daily. High IC + high turnover = useless.</p>
     </div>
   </div>
 </section>
 
-<!-- ═══ RESULTS ═══ -->
-<section class="layer-sec" id="s3">
-  <div class="layer-hdr">
-    <span class="layer-id-badge" style="background:var(--c4d);color:var(--c4)">Experiment Results</span>
+<!-- CHARTS — SVG rendered from real data -->
+<section class="sec" id="charts">
+  <div class="sec-hdr"><span class="sec-badge" style="background:var(--c4);color:#c4b5fd">Experiment Results</span></div>
+  <div class="sec-title">30 Iterations · 38 Factors · 0 Crashes</div>
+  <div class="sec-desc" style="border-left-color:var(--c4)">
+    The first autonomous experiment run explored 12 factor categories. Every factor passed evaluation. The Pareto frontier converged to 14 non-dominated factors. Below are live SVG charts rendered from the experiment source data — no static images.
   </div>
-  <div class="layer-title">30 Iterations · 38 Factors · 0 Crashes</div>
-  <div class="layer-def">
-    The first autonomous experiment run explored 12 factor categories — momentum, reversal, volatility, VWAP, Alpha101 classics, and more. Every factor passed evaluation. The Pareto frontier converged to 14 non-dominated factors.
-  </div>
-  <div style="display:flex;gap:16px;margin-bottom:16px">
-    <img class="img-half" src="assets/pareto_frontier.png" alt="Pareto Frontier — IC vs IR" loading="lazy">
-    <img class="img-half" src="assets/top_factors.png" alt="Top 10 Factors by Predictive Power" loading="lazy">
-  </div>
-  <div class="grid3" style="margin-top:24px">
-    <div class="card">
-      <div class="card-title">🥇 Best Predictor</div>
-      <div style="font-size:28px;font-weight:700;font-family:var(--mono);color:var(--c1)">hl_range</div>
-      <div class="formula">(high − low) / close</div>
-      <span style="font-size:13px;color:var(--muted)">IC = 0.0581</span>
-    </div>
-    <div class="card">
-      <div class="card-title">🥈 Most Consistent</div>
-      <div style="font-size:28px;font-weight:700;font-family:var(--mono);color:var(--c2)">ts_rank_vol</div>
-      <div class="formula">−ts_rank(volume, 5)</div>
-      <span style="font-size:13px;color:var(--muted)">IR = 0.49</span>
-    </div>
-    <div class="card">
-      <div class="card-title">🥉 Cheapest to Trade</div>
-      <div style="font-size:28px;font-weight:700;font-family:var(--mono);color:var(--c3)">vwap_diff</div>
-      <div class="formula">close − vwap</div>
-      <span style="font-size:13px;color:var(--muted)">Turnover = 0.991</span>
-    </div>
-  </div>
-</section>
 
-<!-- ═══ FRONTIER TABLE ═══ -->
-<section class="layer-sec" id="s4">
-  <div class="layer-hdr">
-    <span class="layer-id-badge" style="background:var(--c1d);color:var(--c1)">Pareto Frontier</span>
-  </div>
-  <div class="layer-title">14 Non-Dominated Factors</div>
-  <div class="layer-def">
-    Each factor is uniquely valuable: it cannot be improved on any metric without sacrificing another. Dominated factors (28 total) were automatically removed from the archive.
-  </div>
-  <table style="width:100%;border-collapse:collapse;font-size:13px">
-    <thead>
-      <tr style="border-bottom:2px solid var(--border2);text-align:left">
-        <th style="padding:10px 12px;color:var(--muted);font-weight:600">Factor</th>
-        <th style="padding:10px 12px;color:var(--muted);font-weight:600">|RankIC|</th>
-        <th style="padding:10px 12px;color:var(--muted);font-weight:600">IC IR</th>
-        <th style="padding:10px 12px;color:var(--muted);font-weight:600">Turnover</th>
-        <th style="padding:10px 12px;color:var(--muted);font-weight:600">Category</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">hl_range</td><td style="padding:8px 12px" class="t-high">0.0581</td><td style="padding:8px 12px">0.28</td><td style="padding:8px 12px">0.806</td><td style="padding:8px 12px">Price Range</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">ts_rank_vol</td><td style="padding:8px 12px">0.0486</td><td style="padding:8px 12px" class="t-high">0.49</td><td style="padding:8px 12px">0.902</td><td style="padding:8px 12px">TS Rank</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">momentum_vol</td><td style="padding:8px 12px">0.0365</td><td style="padding:8px 12px">0.23</td><td style="padding:8px 12px" class="t-high">0.953</td><td style="padding:8px 12px">Combo</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">momentum_turn</td><td style="padding:8px 12px">0.0314</td><td style="padding:8px 12px">0.29</td><td style="padding:8px 12px">0.867</td><td style="padding:8px 12px">Combo</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">decay_range</td><td style="padding:8px 12px">0.0273</td><td style="padding:8px 12px">0.13</td><td style="padding:8px 12px">0.814</td><td style="padding:8px 12px">Decay Linear</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">vwap_diff</td><td style="padding:8px 12px">0.0271</td><td style="padding:8px 12px">0.18</td><td style="padding:8px 12px" class="t-high">0.991</td><td style="padding:8px 12px">VWAP</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">vwap_sq</td><td style="padding:8px 12px">0.0258</td><td style="padding:8px 12px">0.20</td><td style="padding:8px 12px">0.988</td><td style="padding:8px 12px">VWAP</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">decay_mom</td><td style="padding:8px 12px">0.0223</td><td style="padding:8px 12px">0.22</td><td style="padding:8px 12px">0.984</td><td style="padding:8px 12px">Decay Linear</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">reversal_10d</td><td style="padding:8px 12px">0.0212</td><td style="padding:8px 12px">0.24</td><td style="padding:8px 12px">0.969</td><td style="padding:8px 12px">Reversal</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">reversal_5d</td><td style="padding:8px 12px">0.0206</td><td style="padding:8px 12px">0.24</td><td style="padding:8px 12px">0.974</td><td style="padding:8px 12px">Reversal</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">momentum_long</td><td style="padding:8px 12px">0.0216</td><td style="padding:8px 12px">0.21</td><td style="padding:8px 12px">0.945</td><td style="padding:8px 12px">Momentum</td></tr>
-      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-family:var(--mono);font-weight:600">ts_rank_mom</td><td style="padding:8px 12px">0.0172</td><td style="padding:8px 12px">0.22</td><td style="padding:8px 12px">0.966</td><td style="padding:8px 12px">TS Rank</td></tr>
-    </tbody>
+  <div class="chart-wrap"><div class="chart-title">Pareto Frontier — Predictive Power vs Stability</div><svg id="chart-frontier" viewBox="0 0 800 420"></svg></div>
+  <div class="chart-wrap"><div class="chart-title">Top 15 Factors by Absolute RankIC</div><svg id="chart-bars" viewBox="0 0 800 420"></svg></div>
+  <div class="chart-wrap"><div class="chart-title">Experiment Evolution — RankIC Over Time</div><svg id="chart-evolution" viewBox="0 0 800 320"></svg></div>
+
+  <div class="sec-title" style="margin-top:16px">Pareto Frontier — 14 Non-Dominated Factors</div>
+  <table style="margin-top:20px">
+    <thead><tr><th>Factor</th><th>|RankIC|</th><th>|IC IR|</th><th>Turnover</th><th>Category</th></tr></thead>
+    <tbody id="frontier-body"></tbody>
   </table>
 </section>
 
-<!-- ═══ CODE ═══ -->
-<section class="layer-sec" id="s5">
-  <div class="layer-hdr">
-    <span class="layer-id-badge" style="background:var(--c5d);color:var(--c5)">Write a Factor</span>
-  </div>
-  <div class="layer-title">3 lines of code. Auto-discovered.</div>
-  <div class="layer-def">
-    The agent writes Factor subclasses in <code style="font-family:var(--mono);color:var(--c4)">factors.py</code>. Each class is automatically discovered, evaluated against the unified dataset, and checked against the Pareto frontier.
-  </div>
-  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden">
-    <div style="padding:8px 16px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px">
-      <span style="width:10px;height:10px;border-radius:50%;background:#f8514966"></span>
-      <span style="width:10px;height:10px;border-radius:50%;background:#eab30866"></span>
-      <span style="width:10px;height:10px;border-radius:50%;background:#28c84066"></span>
-      <span style="font-size:11px;color:var(--muted);margin-left:8px">factors.py</span>
-    </div>
-    <pre style="padding:20px 24px;font-family:var(--mono);font-size:13px;line-height:1.8;color:var(--code-text);overflow-x:auto"><span style="color:var(--c4)">from</span> prepare <span style="color:var(--c4)">import</span> Factor, ops
+<!-- Writing a Factor -->
+<section class="sec" id="code">
+  <div class="sec-hdr"><span class="sec-badge" style="background:#a16207;color:var(--c5)">Write a Factor</span></div>
+  <div class="sec-title">3 lines. Auto-discovered.</div>
+  <div class="sec-desc" style="border-left-color:var(--c5)">The agent writes Factor subclasses in <code style="font-family:var(--mono);color:var(--c4)">factors.py</code>. Each class is automatically discovered, evaluated against the unified dataset, and checked against the Pareto frontier.</div>
+  <div class="code-box">
+    <div class="code-hdr"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span><span class="txt">factors.py</span></div>
+<pre><span class="kw">from</span> prepare <span class="kw">import</span> Factor, ops
 
-<span style="color:var(--c4)">class</span> <span style="color:var(--c1)">Factor001</span>(Factor):
-    <span style="color:var(--muted)">name</span> = <span style="color:var(--c3)">"momentum_5d"</span>
+<span class="kw">class</span> <span class="fn">Factor001</span>(Factor):
+    <span class="cm">name</span> = <span class="str">"momentum_5d"</span>
 
-    <span style="color:var(--c4)">def</span> <span style="color:var(--c2)">compute</span>(self, df):
-        m = df.set_index([<span style="color:var(--c3)">"datetime"</span>, <span style="color:var(--c3)">"symbol"</span>])
-        val = ops.cs_rank(m[<span style="color:var(--c3)">"close"</span>] - ops.delay(m[<span style="color:var(--c3)">"close"</span>], <span style="color:var(--c5)">5</span>))
-        <span style="color:var(--c4)">return</span> Factor.as_cs_series(df, val)</pre>
-  </div>
-  <div class="grid2" style="margin-top:24px">
-    <div class="card">
-      <div class="card-title">12 Operators Available</div>
-      <div style="font-size:12px;font-family:var(--mono);line-height:2;color:var(--muted)">
-        cs_rank · cs_zscore · ts_rank · rolling_corr · rolling_cov · rolling_std<br>
-        rolling_sum · rolling_min · rolling_max · delta · delay · decay_linear
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">16 Data Columns</div>
-      <div style="font-size:12px;font-family:var(--mono);line-height:2;color:var(--muted)">
-        open · high · low · close · volume · vwap · returns<br>
-        adv5 · adv10 · adv20 · adv30 · adv40 · adv60 · adv120 · adv150 · adv180
-      </div>
-    </div>
+    <span class="kw">def</span> <span class="fn">compute</span>(self, df):
+        m = df.set_index([<span class="str">"datetime"</span>, <span class="str">"symbol"</span>])
+        val = ops.cs_rank(m[<span class="str">"close"</span>] - ops.delay(m[<span class="str">"close"</span>], <span class="num">5</span>))
+        <span class="kw">return</span> Factor.as_cs_series(df, val)</pre>
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer style="padding:48px 0;border-top:1px solid var(--border);text-align:center">
-  <p style="font-size:13px;color:var(--muted);margin-bottom:8px">
-    Built for quantitative research · MIT License
-  </p>
-  <p style="font-size:12px;color:var(--faint)">
-    <a href="https://github.com/1998x-stack/alpha-autoresearch" style="color:var(--c2)">github.com/1998x-stack/alpha-autoresearch</a>
-  </p>
+<footer>
+  <p>Built for quantitative research · MIT License</p>
+  <p><a href="https://github.com/1998x-stack/alpha-autoresearch">github.com/1998x-stack/alpha-autoresearch</a></p>
 </footer>
 
 </div>
+
+<script>
+// ═══════════════ Source Data ═══════════════
+const FRONTIER = [
+  {name:"reversal_5d",ic:0.0206,ir:0.24,to:0.974},{name:"reversal_10d",ic:0.0212,ir:0.24,to:0.969},
+  {name:"hl_range",ic:-0.0581,ir:-0.28,to:0.806},{name:"vwap_diff",ic:0.0271,ir:0.18,to:0.991},
+  {name:"vwap_sq",ic:0.0258,ir:0.20,to:0.988},{name:"momentum_vol",ic:-0.0365,ir:-0.23,to:0.953},
+  {name:"ts_rank_vol",ic:0.0486,ir:0.49,to:0.902},{name:"ts_rank_mom",ic:-0.0172,ir:-0.22,to:0.966},
+  {name:"decay_mom",ic:-0.0223,ir:-0.22,to:0.984},{name:"decay_range",ic:-0.0273,ir:-0.13,to:0.814},
+  {name:"momentum_5d",ic:-0.0104,ir:-0.05,to:0.992}
+];
+
+const ALL_FACTORS = [
+  {name:"hl_range",ic:-0.0581,ir:-0.28,to:0.806},{name:"ts_rank_vol",ic:0.0486,ir:0.49,to:0.902},
+  {name:"vol_adv20",ic:-0.0367,ir:-0.24,to:0.810},{name:"momentum_vol",ic:-0.0365,ir:-0.23,to:0.953},
+  {name:"momentum_turn",ic:0.0314,ir:0.29,to:0.867},{name:"vol_adv5_20",ic:-0.0307,ir:-0.22,to:0.763},
+  {name:"decay_range",ic:-0.0273,ir:-0.13,to:0.814},{name:"vwap_diff",ic:0.0271,ir:0.18,to:0.991},
+  {name:"vwap_sq",ic:0.0258,ir:0.20,to:0.988},{name:"decay_mom",ic:-0.0223,ir:-0.22,to:0.984},
+  {name:"momentum_decay",ic:-0.0223,ir:-0.22,to:0.984},{name:"momentum_long",ic:-0.0216,ir:-0.21,to:0.945},
+  {name:"momentum_v3",ic:-0.0216,ir:-0.25,to:0.962},{name:"momentum_v2",ic:-0.0212,ir:-0.24,to:0.969},
+  {name:"reversal_10d",ic:0.0212,ir:0.24,to:0.969}
+];
+
+const EXP_EVOLUTION = [
+  {n:1,ic:-0.0206},{n:2,ic:-0.0212},{n:3,ic:-0.0216},{n:4,ic:-0.0216,ic2:0.0314},
+  {n:5,ic:-0.0223},{n:6,ic:0.0206},{n:7,ic:0.0212,ic2:-0.0581},{n:8,ic:0.0039},
+  {n:9,ic:0.0023},{n:10,ic:0.0010,ic2:-0.0216},{n:11,ic:-0.0033},{n:12,ic:0.0005},
+  {n:13,ic:-0.0581,ic2:0.0210},{n:14,ic:-0.0165},{n:15,ic:0.0271},{n:16,ic:0.0258},
+  {n:17,ic:-0.0367},{n:18,ic:-0.0307},{n:19,ic:0.0096,ic2:0.0212},{n:20,ic:-0.0023},
+  {n:21,ic:-0.0365},{n:22,ic:0.0314,ic2:0.0486},{n:23,ic:-0.0010},{n:24,ic:-0.0034},
+  {n:25,ic:0.0210,ic2:0.0096},{n:26,ic:-0.0165},{n:27,ic:-0.0172},{n:28,ic:0.0486,ic2:0.0010},
+  {n:29,ic:-0.0223},{n:30,ic:-0.0273}
+];
+
+const CATEGORIES = {
+  hl_range:'Price Range',ts_rank_vol:'TS Rank',ts_rank_mom:'TS Rank',
+  momentum_vol:'Combo',momentum_turn:'Combo',decay_range:'Decay Linear',
+  vwap_diff:'VWAP',vwap_sq:'VWAP',decay_mom:'Decay Linear',
+  momentum_v2:'Momentum',momentum_v3:'Momentum',momentum_long:'Momentum',
+  momentum_decay:'Momentum',momentum_5d:'Momentum',momentum_v1:'Momentum',
+  reversal_5d:'Reversal',reversal_10d:'Reversal',
+  vol_adv20:'Volume',vol_adv5_20:'Volume'
+};
+
+// ═══ Chart 1: Pareto Frontier Bubble Chart ═══
+(function(){
+  const svg=document.getElementById('chart-frontier');
+  const W=800,H=420,pl=70,pr=40,pt=40,pb=60,pw=W-pl-pr,ph=H-pt-pb;
+  const xs=FRONTIER.map(d=>Math.abs(d.ic)),ys=FRONTIER.map(d=>Math.abs(d.ir));
+  const xM=Math.max(...xs)*1.15,yM=Math.max(...ys)*1.2;
+  const sx=x=>pl+(x/xM)*pw,sy=y=>pt+ph-(y/yM)*ph;
+  let h='';
+  for(let i=0;i<=4;i++){const y=yM*i/4;h+=`<line x1="${pl}" y1="${sy(y)}" x2="${W-pr}" y2="${sy(y)}" stroke="var(--border)" stroke-dasharray="4,4"/><text x="${pl-8}" y="${sy(y)+4}" text-anchor="end" font-size="10" fill="var(--faint)">${y.toFixed(1)}</text>`}
+  for(let i=0;i<=4;i++){const x=xM*i/4;h+=`<line x1="${sx(x)}" y1="${pt}" x2="${sx(x)}" y2="${H-pb}" stroke="var(--border)" stroke-dasharray="4,4"/><text x="${sx(x)}" y="${H-pb+20}" text-anchor="middle" font-size="10" fill="var(--faint)">${x.toFixed(3)}</text>`}
+  for(const d of FRONTIER){
+    const x=sx(Math.abs(d.ic)),y=sy(Math.abs(d.ir)),r=d.to*14+3;
+    const c=d.ic>0?'var(--c1)':'var(--c3)';
+    h+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" fill-opacity="0.55" stroke="${c}" stroke-width="1.5"/>`;
+    if(r>5)h+=`<text x="${x}" y="${y+3.5}" text-anchor="middle" font-size="9" font-family="var(--mono)">${d.name}</text>`;
+  }
+  h+=`<text x="${W/2}" y="${H-8}" text-anchor="middle" font-size="11" fill="var(--muted)">|RankIC| (predictive power)</text>`;
+  h+=`<text x="14" y="${H/2}" text-anchor="middle" font-size="11" fill="var(--muted)" transform="rotate(-90,14,${H/2})">|IC IR| (stability)</text>`;
+  h+=`<circle cx="${W-130}" cy="25" r="6" fill="var(--c1)" fill-opacity="0.6"/><text x="${W-118}" y="29" font-size="11" fill="var(--muted)">IC > 0 (mom)</text>`;
+  h+=`<circle cx="${W-130}" cy="44" r="6" fill="var(--c3)" fill-opacity="0.6"/><text x="${W-118}" y="48" font-size="11" fill="var(--muted)">IC < 0 (rev)</text>`;
+  svg.innerHTML=h;
+})();
+
+// ═══ Chart 2: Top Factors Bar Chart ═══
+(function(){
+  const svg=document.getElementById('chart-bars');
+  const W=800,H=420,pl=120,pr=60,pt=16,pb=40,pw=W-pl-pr;
+  const data=ALL_FACTORS.slice(0,15),maxIC=Math.max(...data.map(d=>Math.abs(d.ic)));
+  const barH=(H-pt-pb)/data.length;
+  let h='';
+  for(let i=0;i<=4;i++){const x=maxIC*i/4;h+=`<line x1="${pl+x/maxIC*pw}" y1="${pt}" x2="${pl+x/maxIC*pw}" y2="${H-pb}" stroke="var(--border)" stroke-dasharray="4,4"/><text x="${pl+x/maxIC*pw}" y="${H-pb+18}" text-anchor="middle" font-size="10" fill="var(--faint)">${x.toFixed(2)}</text>`}
+  data.forEach((d,i)=>{
+    const y=pt+i*barH+2,bh=barH-4,w=Math.abs(d.ic)/maxIC*pw;
+    const c=d.ic>0?'var(--c1)':'var(--c3)';
+    h+=`<rect x="${pl}" y="${y}" width="${w}" height="${bh}" fill="${c}" fill-opacity="0.7" rx="3"/>`;
+    h+=`<text x="${pl-8}" y="${y+bh/2+4}" text-anchor="end" font-size="11" font-family="var(--mono)">${d.name}</text>`;
+    h+=`<text x="${pl+w+6}" y="${y+bh/2+4}" font-size="10" font-family="var(--mono)" fill="var(--muted)">${d.ic.toFixed(3)}</text>`;
+  });
+  h+=`<text x="${W/2}" y="${H-4}" text-anchor="middle" font-size="10" fill="var(--muted)">|RankIC|</text>`;
+  svg.innerHTML=h;
+})();
+
+// ═══ Chart 3: Experiment Evolution ═══
+(function(){
+  const svg=document.getElementById('chart-evolution');
+  const W=800,H=320,pl=50,pr=30,pt=24,pb=44,pw=W-pl-pr,ph=H-pt-pb;
+  const allV=EXP_EVOLUTION.flatMap(d=>[Math.abs(d.ic),d.ic2?Math.abs(d.ic2):null].filter(Boolean));
+  const yM=Math.max(...allV)*1.3;
+  const sx=i=>pl+(i-1)/(EXP_EVOLUTION.length-1)*pw,sy=v=>pt+ph-v/yM*ph;
+  let h='',path='',dots='';
+  for(let i=0;i<=4;i++){const y=yM*i/4;h+=`<line x1="${pl}" y1="${sy(y)}" x2="${W-pr}" y2="${sy(y)}" stroke="var(--border)" stroke-dasharray="4,4"/><text x="${pl-8}" y="${sy(y)+4}" text-anchor="end" font-size="10" fill="var(--faint)">${y.toFixed(2)}</text>`}
+  EXP_EVOLUTION.forEach((d,i)=>{
+    const x=sx(i+1),y=sy(Math.abs(d.ic));
+    path+=(i===0?'M':'L')+`${x.toFixed(1)},${y.toFixed(1)}`;
+    dots+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="var(--c2)"/>`;
+    if(d.ic2)dots+=`<circle cx="${x.toFixed(1)}" cy="${sy(Math.abs(d.ic2)).toFixed(1)}" r="3" fill="var(--c4)"/>`;
+  });
+  h+=`<path d="${path}" stroke="var(--c2)" stroke-width="2" fill="none" opacity="0.8"/>${dots}`;
+  h+=`<text x="${sx(7)}" y="${sy(0.058)-18}" text-anchor="middle" font-size="9" fill="var(--c5)">best: hl_range (0.058)</text>`;
+  h+=`<text x="${W/2}" y="${H-8}" text-anchor="middle" font-size="10" fill="var(--muted)">Experiment #</text>`;
+  h+=`<text x="12" y="${H/2}" text-anchor="middle" font-size="10" fill="var(--muted)" transform="rotate(-90,12,${H/2})">|RankIC|</text>`;
+  svg.innerHTML=h;
+})();
+
+// ═══ Frontier Table ═══
+(function(){
+  const tbody=document.getElementById('frontier-body');
+  const rows=FRONTIER.sort((a,b)=>Math.abs(b.ic)-Math.abs(a.ic));
+  const bIC=Math.max(...rows.map(d=>Math.abs(d.ic)));
+  const bIR=Math.max(...rows.map(d=>Math.abs(d.ir)));
+  const bTO=Math.max(...rows.map(d=>d.to));
+  tbody.innerHTML=rows.map(d=>`<tr>
+    <td class="name">${d.name}</td>
+    <td class="${Math.abs(d.ic)>=bIC?'hi':''}">${Math.abs(d.ic).toFixed(4)}</td>
+    <td class="${Math.abs(d.ir)>=bIR?'hi':''}">${Math.abs(d.ir).toFixed(2)}</td>
+    <td class="${d.to>=bTO?'hi':''}">${d.to.toFixed(3)}</td>
+    <td style="font-size:12px;color:var(--muted)">${CATEGORIES[d.name]||'—'}</td>
+  </tr>`).join('');
+})();
+</script>
+
 </body>
 </html>

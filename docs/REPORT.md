@@ -10,9 +10,15 @@
 ## 📈 可视化概览
 
 <p align="center">
-  <img src="../assets/pareto_frontier.png" width="32%" alt="帕累托前沿">
-  <img src="../assets/top_factors.png" width="32%" alt="Top 10 因子">
-  <img src="../assets/metric_correlations.png" width="32%" alt="指标相关性">
+  <img src="../assets/pareto_frontier.png" width="80%" alt="帕累托前沿">
+</p>
+
+<p align="center">
+  <img src="../assets/top_factors.png" width="80%" alt="Top 10 因子">
+</p>
+
+<p align="center">
+  <img src="../assets/metric_correlations.png" width="80%" alt="指标相关性">
 </p>
 
 > **左：** 帕累托前沿 — IC vs IR，颜色表示换手稳定性。**中：** 预测能力最强的 10 个因子。**右：** 三个指标间的两两相关性。

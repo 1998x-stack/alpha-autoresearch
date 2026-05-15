@@ -87,8 +87,10 @@ These form a **Pareto frontier** — you can't maximize all three simultaneously
 30 iterations, 38 factors generated, **0 crashes**.
 
 <p align="center">
-  <img src="assets/pareto_frontier.png" width="48%" alt="Pareto Frontier">
-  <img src="assets/top_factors.png" width="48%" alt="Top Factors">
+  <img src="assets/pareto_frontier.png" width="85%" alt="Pareto Frontier">
+</p>
+<p align="center">
+  <img src="assets/top_factors.png" width="85%" alt="Top Factors">
 </p>
 
 | Highlight | Factor | Value |
