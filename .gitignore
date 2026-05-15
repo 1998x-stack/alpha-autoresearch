@@ -2,4 +2,8 @@ __pycache__/
 *.py[oc]
 *.egg-info/
 results.tsv
+progress.log
+uv.lock
 .pytest_cache/
+docs/superpowers/
+.venv/*

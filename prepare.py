@@ -19,11 +19,12 @@ from loguru import logger
 
 MAX_FACTORS_PER_EXPERIMENT = 10
 WALL_CLOCK_TIMEOUT = 60
-DATA_ROOT = Path(os.getenv("ALPHA101_DATA_ROOT", str(Path(__file__).resolve().parent.parent / "alpha101_factory" / "data")))
+PROJECT_ROOT = Path(__file__).resolve().parent
+DATA_ROOT = Path(os.getenv("ALPHA101_DATA_ROOT", str(PROJECT_ROOT.parent / "alpha101_factory" / "data")))
 PARQ_DIR_KLINES = DATA_ROOT / "klines_daily"
-PARQ_DIR_TMP = DATA_ROOT / "tmp_features"
 CACHE_DIR = Path(os.path.expanduser("~/.cache/alpha_autoresearch"))
-PANEL_PATH = CACHE_DIR / "panel.parquet"
+PANEL_PATH = PROJECT_ROOT / "data" / "panel.parquet"
+FULL_PANEL_PATH = CACHE_DIR / "panel.parquet"
 START_DATE = os.getenv("ALPHA101_START", "20200101")
 END_DATE = os.getenv("ALPHA101_END", "20250917")
 ADJUST = os.getenv("ALPHA101_ADJUST", "qfq")
@@ -235,18 +236,19 @@ def build_unified_panel() -> pd.DataFrame:
     panel = panel.sort_values(["datetime", "symbol"]).reset_index(drop=True)
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    panel.to_parquet(PANEL_PATH, index=False)
+    panel.to_parquet(FULL_PANEL_PATH, index=False)
     logger.info(f"Unified panel saved: {len(panel):,} rows, {panel['symbol'].nunique()} stocks, "
                 f"{panel['datetime'].min().date()} ~ {panel['datetime'].max().date()}")
     return panel
 
 
 def load_panel() -> pd.DataFrame:
-    if PANEL_PATH.exists():
-        df = pd.read_parquet(PANEL_PATH)
-        df["datetime"] = pd.to_datetime(df["datetime"])
-        return df
-    logger.warning(f"Panel cache not found at {PANEL_PATH}. Run with --build-cache first.")
+    for path in [PANEL_PATH, FULL_PANEL_PATH]:
+        if path.exists():
+            df = pd.read_parquet(path)
+            df["datetime"] = pd.to_datetime(df["datetime"])
+            return df
+    logger.warning(f"No panel data found. Run with --build-cache first.")
     return pd.DataFrame()
 
 

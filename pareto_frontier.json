@@ -144,8 +144,18 @@
       "commit": "",
       "added": "2026-05-15T17:00:48.853229",
       "formula": ""
+    },
+    {
+      "name": "decay_range",
+      "rank_ic": -0.03263119391774481,
+      "ic_ir": -0.20783921304306885,
+      "turnover_stability": 0.792202657268908,
+      "description": "",
+      "commit": "",
+      "added": "2026-05-15T18:13:02.998895",
+      "formula": ""
     }
   ],
   "dominated_count": 28,
-  "total_experiments": 41
+  "total_experiments": 42
 }

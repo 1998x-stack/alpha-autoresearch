@@ -29,12 +29,13 @@ Agent modifies factors.py → evaluate (3 metrics) → Pareto check → keep/dis
 
 ```bash
 cd alpha_autoresearch
-uv sync                                          # install deps
-uv run python prepare.py --build-cache           # build dataset (~10s)
-uv run python prepare.py                         # evaluate factors
+uv sync                          # install deps
+uv run python prepare.py         # evaluate factors (sample dataset included)
 ```
 
-**Requirements:** Python 3.8+, [uv](https://docs.astral.sh/uv/), A-share kline data from [alpha101_factory](../alpha101_factory/).
+**Requirements:** Python 3.8+, [uv](https://docs.astral.sh/uv/).
+
+> The project includes a sample dataset (50 A-shares, 2020-2025, ~6.7 MB). For the full 495-stock dataset, run `uv run python prepare.py --build-cache` with access to alpha101_factory kline data.
 
 ---
 
@@ -99,7 +100,7 @@ See **[REPORT.md](docs/REPORT.md)** for full analysis (Chinese).
 ## Commands
 
 ```bash
-uv run python prepare.py --build-cache   # build unified dataset
+uv run python prepare.py --build-cache   # build full 495-stock dataset (optional)
 uv run python prepare.py                 # evaluate factors.py
 uv run pytest tests/ -v                  # run 31 tests
 grep "^factor:\|^status:"               # extract results

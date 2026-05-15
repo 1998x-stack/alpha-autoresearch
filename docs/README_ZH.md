@@ -18,7 +18,6 @@
 
 - Python 3.8+
 - [uv](https://docs.astral.sh/uv/) 包管理器
-- alpha101_factory 的 A 股 K线数据（运行过 `fetch` 和 `tmp`）
 
 ### 安装
 
@@ -27,14 +26,16 @@ cd alpha_autoresearch
 uv sync
 ```
 
-### 一键构建数据集 + 首次评估
+### 开箱即用
 
 ```bash
-# 构建统一数据集（从 alpha101_factory 的 klines_daily 读取，约 10 秒）
-uv run python prepare.py --build-cache
-
-# 评估当前 factors.py 中的因子
+# 直接评估（项目内置 50 只 A 股样本数据集，约 6.7 MB）
 uv run python prepare.py
+```
+
+如需使用完整 495 只股票数据集，运行：
+```bash
+uv run python prepare.py --build-cache   # 从 alpha101_factory 的 klines_daily 构建
 ```
 
 ---
