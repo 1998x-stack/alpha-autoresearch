@@ -20,7 +20,7 @@ from loguru import logger
 MAX_FACTORS_PER_EXPERIMENT = 10
 WALL_CLOCK_TIMEOUT = 60
 PROJECT_ROOT = Path(__file__).resolve().parent
-DATA_ROOT = Path(os.getenv("ALPHA101_DATA_ROOT", str(PROJECT_ROOT.parent / "alpha101_factory" / "data")))
+DATA_ROOT = Path(os.getenv("ALPHA101_DATA_ROOT", ""))
 PARQ_DIR_KLINES = DATA_ROOT / "klines_daily"
 CACHE_DIR = Path(os.path.expanduser("~/.cache/alpha_autoresearch"))
 PANEL_PATH = PROJECT_ROOT / "data" / "panel.parquet"
@@ -204,7 +204,7 @@ def build_unified_panel() -> pd.DataFrame:
 
     if not PARQ_DIR_KLINES.exists():
         logger.error(f"klines_daily directory not found: {PARQ_DIR_KLINES}")
-        logger.info("Set ALPHA101_DATA_ROOT env var or run alpha101_factory fetch first.")
+        logger.info("Set ALPHA101_DATA_ROOT to point to a data directory with klines_daily/ subfolder.")
         return pd.DataFrame()
 
     kline_files = sorted(PARQ_DIR_KLINES.glob("*.parquet"))
@@ -468,7 +468,7 @@ def main():
 
     parser = argparse.ArgumentParser(description="alpha_autoresearch evaluation harness")
     parser.add_argument("--build-cache", action="store_true",
-                        help="Build unified panel from alpha101_factory data")
+                        help="Build full unified panel from klines_daily data (requires ALPHA101_DATA_ROOT)")
     args = parser.parse_args()
 
     if args.build_cache:

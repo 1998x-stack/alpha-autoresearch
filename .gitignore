@@ -2,8 +2,7 @@ __pycache__/
 *.py[oc]
 *.egg-info/
 results.tsv
-progress.log
-uv.lock
+*.log
 .pytest_cache/
 docs/superpowers/
-.venv/*
+.venv/
