@@ -11,6 +11,7 @@
   <img src="https://img.shields.io/badge/factors-48_evaluated-7C3AED" alt="Factors">
   <img src="https://img.shields.io/badge/frontier-19_non--dominated-F59E0B" alt="Frontier">
   <img src="https://img.shields.io/badge/license-MIT-00A858" alt="License">
+  <a href="https://1998x-stack.github.io/alpha-autoresearch/"><img src="https://img.shields.io/badge/🌐-GitHub_Pages-6366f1" alt="GitHub Pages"></a>
 </p>
 
 ---
