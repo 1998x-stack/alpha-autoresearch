@@ -1,0 +1,5 @@
+__pycache__/
+*.py[oc]
+*.egg-info/
+results.tsv
+.pytest_cache/

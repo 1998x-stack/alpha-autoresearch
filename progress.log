@@ -1,0 +1,141 @@
+[16:56:43] ============================================================
+[16:56:43] STARTING AUTONOMOUS EXPERIMENT LOOP — max iterations: 30
+[16:56:43] Initial frontier size: 3
+[16:56:43] ============================================================
+[16:56:43] 
+--- Iteration 1/30 ---
+[16:56:46]   KEEP  | momentum_v1               | IC=-0.0206 IR=-0.24 TO=0.9735 | frontier=4
+[16:56:46]   Elapsed: 3.0s | Keeps: 1 | Discards: 0 | Crashes: 0
+[16:56:46] 
+--- Iteration 2/30 ---
+[16:56:49]   KEEP  | momentum_v2               | IC=-0.0212 IR=-0.24 TO=0.9689 | frontier=5
+[16:56:49]   Elapsed: 2.8s | Keeps: 2 | Discards: 0 | Crashes: 0
+[16:56:49] 
+--- Iteration 3/30 ---
+[16:56:52]   KEEP  | momentum_v3               | IC=-0.0216 IR=-0.25 TO=0.9617 | frontier=6
+[16:56:52]   Elapsed: 2.8s | Keeps: 3 | Discards: 0 | Crashes: 0
+[16:56:52] 
+--- Iteration 4/30 ---
+[16:56:56]   KEEP  | momentum_long             | IC=-0.0216 IR=-0.21 TO=0.9451 | frontier=8
+[16:56:56]   KEEP  | momentum_turn_v2          | IC=+0.0314 IR=+0.29 TO=0.8667 | frontier=8
+[16:56:56]   Elapsed: 4.2s | Keeps: 5 | Discards: 0 | Crashes: 0
+[16:56:56] 
+--- Iteration 5/30 ---
+[16:56:59]   KEEP  | momentum_decay            | IC=-0.0223 IR=-0.22 TO=0.9839 | frontier=3
+[16:56:59]   Elapsed: 3.0s | Keeps: 6 | Discards: 0 | Crashes: 0
+[16:56:59] 
+--- Iteration 6/30 ---
+[16:57:02]   KEEP  | reversal_5d               | IC=+0.0206 IR=+0.24 TO=0.9735 | frontier=4
+[16:57:02]   Elapsed: 2.8s | Keeps: 7 | Discards: 0 | Crashes: 0
+[16:57:02] 
+--- Iteration 7/30 ---
+[16:57:06]   KEEP  | reversal_10d              | IC=+0.0212 IR=+0.24 TO=0.9689 | frontier=6
+[16:57:06]   KEEP  | hl_range_v2               | IC=-0.0581 IR=-0.28 TO=0.8055 | frontier=6
+[16:57:06]   Elapsed: 3.9s | Keeps: 9 | Discards: 0 | Crashes: 0
+[16:57:06] 
+--- Iteration 8/30 ---
+[16:57:08]   KEEP  | vol_corr                  | IC=+0.0039 IR=+0.05 TO=0.8936 | frontier=7
+[16:57:08]   Elapsed: 2.7s | Keeps: 10 | Discards: 0 | Crashes: 0
+[16:57:08] 
+--- Iteration 9/30 ---
+[16:57:11]   KEEP  | vol_corr_20               | IC=+0.0023 IR=+0.02 TO=0.8942 | frontier=8
+[16:57:11]   Elapsed: 2.7s | Keeps: 11 | Discards: 0 | Crashes: 0
+[16:57:11] 
+--- Iteration 10/30 ---
+[16:57:15]   KEEP  | vol_rank_corr             | IC=+0.0010 IR=+0.01 TO=0.8970 | frontier=10
+[16:57:15]   KEEP  | momentum_long_v2          | IC=-0.0216 IR=-0.21 TO=0.9451 | frontier=10
+[16:57:15]   Elapsed: 4.2s | Keeps: 13 | Discards: 0 | Crashes: 0
+[16:57:15] 
+--- Iteration 11/30 ---
+[16:57:18]   KEEP  | volatility                | IC=-0.0033 IR=-0.03 TO=0.9772 | frontier=11
+[16:57:18]   Elapsed: 2.6s | Keeps: 14 | Discards: 0 | Crashes: 0
+[16:57:18] 
+--- Iteration 12/30 ---
+[16:57:21]   KEEP  | volume_vol                | IC=+0.0005 IR=+0.00 TO=0.9383 | frontier=12
+[16:57:21]   Elapsed: 2.6s | Keeps: 15 | Discards: 0 | Crashes: 0
+[16:57:21] 
+--- Iteration 13/30 ---
+[16:57:25]   KEEP  | hl_range                  | IC=-0.0581 IR=-0.28 TO=0.8055 | frontier=14
+[16:57:25]   KEEP  | alpha054_style_v2         | IC=+0.0210 IR=+0.14 TO=0.6871 | frontier=14
+[16:57:25]   Elapsed: 3.8s | Keeps: 17 | Discards: 0 | Crashes: 0
+[16:57:25] 
+--- Iteration 14/30 ---
+[16:57:27]   KEEP  | open_hl                   | IC=-0.0165 IR=-0.11 TO=0.6716 | frontier=15
+[16:57:27]   Elapsed: 2.6s | Keeps: 18 | Discards: 0 | Crashes: 0
+[16:57:27] 
+--- Iteration 15/30 ---
+[16:57:30]   KEEP  | vwap_diff                 | IC=+0.0271 IR=+0.18 TO=0.9909 | frontier=6
+[16:57:30]   Elapsed: 2.6s | Keeps: 19 | Discards: 0 | Crashes: 0
+[16:57:30] 
+--- Iteration 16/30 ---
+[16:57:33]   KEEP  | vwap_sq                   | IC=+0.0258 IR=+0.20 TO=0.9877 | frontier=7
+[16:57:33]   Elapsed: 2.6s | Keeps: 20 | Discards: 0 | Crashes: 0
+[16:57:33] 
+--- Iteration 17/30 ---
+[16:57:36]   WARN: /Users/mx/Desktop/awsome-autoresearch/alpha_autoresearch/.venv/lib/python3.11/site-packages/pandas/core/nanops.py:1673: ConstantInputWarning: An input array is constant; the correlation coefficient is
+[16:57:36]   KEEP  | vol_adv20                 | IC=-0.0367 IR=-0.24 TO=0.8097 | frontier=8
+[16:57:36]   Elapsed: 2.9s | Keeps: 21 | Discards: 0 | Crashes: 0
+[16:57:36] 
+--- Iteration 18/30 ---
+[16:57:39]   WARN: /Users/mx/Desktop/awsome-autoresearch/alpha_autoresearch/.venv/lib/python3.11/site-packages/pandas/core/nanops.py:1673: ConstantInputWarning: An input array is constant; the correlation coefficient is
+[16:57:39]   KEEP  | vol_adv5_20               | IC=-0.0307 IR=-0.22 TO=0.7625 | frontier=9
+[16:57:39]   Elapsed: 3.2s | Keeps: 22 | Discards: 0 | Crashes: 0
+[16:57:39] 
+--- Iteration 19/30 ---
+[16:57:43]   KEEP  | ret_mean                  | IC=+0.0096 IR=+0.05 TO=0.6807 | frontier=11
+[16:57:43]   KEEP  | reversal_10d_v2           | IC=+0.0212 IR=+0.24 TO=0.9689 | frontier=11
+[16:57:43]   Elapsed: 3.9s | Keeps: 24 | Discards: 0 | Crashes: 0
+[16:57:43] 
+--- Iteration 20/30 ---
+[16:57:45]   KEEP  | ret_vol                   | IC=-0.0023 IR=-0.01 TO=0.7682 | frontier=12
+[16:57:45]   Elapsed: 2.6s | Keeps: 25 | Discards: 0 | Crashes: 0
+[16:57:45] 
+--- Iteration 21/30 ---
+[16:57:48]   KEEP  | momentum_vol              | IC=-0.0365 IR=-0.23 TO=0.9525 | frontier=13
+[16:57:48]   Elapsed: 2.9s | Keeps: 26 | Discards: 0 | Crashes: 0
+[16:57:48] 
+--- Iteration 22/30 ---
+[16:58:43]   KEEP  | momentum_turn             | IC=+0.0314 IR=+0.29 TO=0.8667 | frontier=10
+[16:58:43]   KEEP  | ts_rank_vol_v2            | IC=+0.0486 IR=+0.49 TO=0.9022 | frontier=10
+[16:58:43]   Elapsed: 54.5s | Keeps: 28 | Discards: 0 | Crashes: 0
+[16:58:43] 
+--- Iteration 23/30 ---
+[16:58:46]   KEEP  | alpha003_style            | IC=-0.0010 IR=-0.01 TO=0.8970 | frontier=11
+[16:58:46]   Elapsed: 3.1s | Keeps: 29 | Discards: 0 | Crashes: 0
+[16:58:46] 
+--- Iteration 24/30 ---
+[16:58:49]   KEEP  | alpha006_style            | IC=-0.0034 IR=-0.05 TO=0.8939 | frontier=12
+[16:58:49]   Elapsed: 2.7s | Keeps: 30 | Discards: 0 | Crashes: 0
+[16:58:49] 
+--- Iteration 25/30 ---
+[16:58:53]   KEEP  | alpha054_style            | IC=+0.0210 IR=+0.14 TO=0.6871 | frontier=14
+[16:58:53]   KEEP  | ret_mean_v2               | IC=+0.0096 IR=+0.05 TO=0.6807 | frontier=14
+[16:58:53]   Elapsed: 3.7s | Keeps: 32 | Discards: 0 | Crashes: 0
+[16:58:53] 
+--- Iteration 26/30 ---
+[16:58:55]   KEEP  | alpha101_style            | IC=-0.0165 IR=-0.11 TO=0.6716 | frontier=15
+[16:58:55]   Elapsed: 2.6s | Keeps: 33 | Discards: 0 | Crashes: 0
+[16:58:55] 
+--- Iteration 27/30 ---
+[16:59:47]   KEEP  | ts_rank_mom               | IC=-0.0172 IR=-0.22 TO=0.9663 | frontier=16
+[16:59:47]   Elapsed: 51.8s | Keeps: 34 | Discards: 0 | Crashes: 0
+[16:59:47] 
+--- Iteration 28/30 ---
+[17:00:42]   KEEP  | ts_rank_vol               | IC=+0.0486 IR=+0.49 TO=0.9022 | frontier=12
+[17:00:42]   KEEP  | vol_rank_corr_v2          | IC=+0.0010 IR=+0.01 TO=0.8970 | frontier=12
+[17:00:42]   Elapsed: 54.5s | Keeps: 36 | Discards: 0 | Crashes: 0
+[17:00:42] 
+--- Iteration 29/30 ---
+[17:00:45]   KEEP  | decay_mom                 | IC=-0.0223 IR=-0.22 TO=0.9839 | frontier=13
+[17:00:45]   Elapsed: 3.4s | Keeps: 37 | Discards: 0 | Crashes: 0
+[17:00:45] 
+--- Iteration 30/30 ---
+[17:00:48]   KEEP  | decay_range               | IC=-0.0273 IR=-0.13 TO=0.8137 | frontier=14
+[17:00:48]   Elapsed: 3.1s | Keeps: 38 | Discards: 0 | Crashes: 0
+[17:00:48] 
+============================================================
+[17:00:48] LOOP COMPLETE — 30 iterations
+[17:00:48] Total: 38 keeps, 0 discards, 0 crashes
+[17:00:48] Best IC: 0.0581 | Best IR: 0.49
+[17:00:48] Final frontier size: 14
+[17:00:48] ============================================================
