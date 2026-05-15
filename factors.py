@@ -10,9 +10,9 @@ from prepare import Factor, ops
 
 
 class Factor001(Factor):
-    name = "decay_range"
+    name = "momentum_5d"
 
     def compute(self, df):
         m = df.set_index(["datetime", "symbol"])
-        val = ops.decay_linear((m["high"] - m["low"]) / m["close"], 10)
+        val = ops.cs_rank(m["close"] - ops.delay(m["close"], 5))
         return Factor.as_cs_series(df, val)

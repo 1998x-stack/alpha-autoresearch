@@ -24,13 +24,14 @@ One cycle of the agent loop: modify `factors.py` (write 1-10 Factor classes) →
 The single file (`factors.py`) that the agent modifies. Contains Factor subclasses using operators from `ops.*` and columns from the unified dataset.
 
 ### Unified Dataset
-A fixed panel DataFrame with MultiIndex `(datetime, symbol)` containing all available columns (open, high, low, close, volume, vwap, returns, adv5-adv180) for 496 A-shares over 2020-2025. Pre-built once from the alpha101_factory parquet cache. Never modified during experiments.
+A fixed panel DataFrame with MultiIndex `(datetime, symbol)` containing all available columns (open, high, low, close, volume, vwap, returns, adv5-adv180) for ~500 A-shares over 2020-2025. Included as `data/panel.parquet` (50-stock sample) or built on demand from klines_daily. Never modified during experiments.
 
 ## Operator Glossary (ops.*)
 
 | Operator | Domain meaning |
 |----------|---------------|
 | `cs_rank` | Cross-sectional percentile rank — how a stock ranks vs peers on a given day |
+| `cs_zscore` | Cross-sectional z-score — how many standard deviations from the day's mean |
 | `ts_rank` | Time-series percentile rank — how a stock's current value ranks in its own history |
 | `rolling_corr` | Rolling Pearson correlation — co-movement between two series |
 | `rolling_cov` | Rolling covariance — scaled co-movement (used for factor interaction) |

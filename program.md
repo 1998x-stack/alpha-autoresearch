@@ -8,7 +8,7 @@ An AI agent autonomously invents and iterates on Alpha101-style quantitative fac
 2. Read `results.tsv` — review recent experiment history
 3. Read `factors.py` — understand current active factors
 4. Read `prepare.py` (ops section + Factor base class) — understand available operators and columns
-5. Confirm data exists at `~/.cache/alpha_autoresearch/panel.parquet`
+5. Confirm data exists at `data/panel.parquet` (included sample) or run `--build-cache` for full dataset
 6. Initialize `results.tsv` with header if not exists
 7. Create branch `alpha_autoresearch/<tag>` from master
 

@@ -2,7 +2,7 @@
 """Autonomous experiment loop runner for alpha_autoresearch.
 Runs N iterations of: modify factors.py -> evaluate -> log to results.tsv -> keep/discard.
 """
-import sys, os, json, subprocess, time, hashlib
+import sys, os, json, subprocess, time
 from pathlib import Path
 from datetime import datetime
 
@@ -180,7 +180,9 @@ for iteration in range(MAX_ITER):
     # Git commit
     subprocess.run(["git", "add", "factors.py"], capture_output=True, cwd=ROOT)
     commit_msg = f"exp: iteration {iteration + 1} — factor generation"
-    subprocess.run(["git", "commit", "-m", commit_msg], capture_output=True, cwd=ROOT)
+    r = subprocess.run(["git", "commit", "-m", commit_msg], capture_output=True, text=True, cwd=ROOT)
+    if r.returncode != 0 and "nothing to commit" not in r.stderr:
+        log(f"  Git commit failed: {r.stderr.strip()[:100]}")
     
     # Run evaluation
     t0 = time.time()

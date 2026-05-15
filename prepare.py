@@ -25,9 +25,6 @@ PARQ_DIR_KLINES = DATA_ROOT / "klines_daily"
 CACHE_DIR = Path(os.path.expanduser("~/.cache/alpha_autoresearch"))
 PANEL_PATH = PROJECT_ROOT / "data" / "panel.parquet"
 FULL_PANEL_PATH = CACHE_DIR / "panel.parquet"
-START_DATE = os.getenv("ALPHA101_START", "20200101")
-END_DATE = os.getenv("ALPHA101_END", "20250917")
-ADJUST = os.getenv("ALPHA101_ADJUST", "qfq")
 
 METRIC_NAMES = ["rank_ic", "ic_ir", "turnover_stability"]
 
@@ -337,8 +334,8 @@ ARCHIVE_PATH = Path(__file__).resolve().parent / "pareto_frontier.json"
 
 
 def dominates(a: Dict[str, float], b: Dict[str, float]) -> bool:
-    a_abs = {k: abs(v) if k == "rank_ic" else v for k, v in a.items()}
-    b_abs = {k: abs(v) if k == "rank_ic" else v for k, v in b.items()}
+    a_abs = {k: abs(v) if k in ("rank_ic", "ic_ir") else v for k, v in a.items()}
+    b_abs = {k: abs(v) if k in ("rank_ic", "ic_ir") else v for k, v in b.items()}
     all_ge = all(a_abs[m] >= b_abs[m] for m in METRIC_NAMES)
     any_gt = any(a_abs[m] > b_abs[m] for m in METRIC_NAMES)
     return all_ge and any_gt
@@ -414,11 +411,13 @@ def evaluate_all_factors(panel: pd.DataFrame) -> List[Dict]:
 
     factor_names = list(discovered.keys())[:MAX_FACTORS_PER_EXPERIMENT]
     if len(discovered) > MAX_FACTORS_PER_EXPERIMENT:
+        skipped = list(discovered.keys())[MAX_FACTORS_PER_EXPERIMENT:]
         logger.warning(f"Truncating to {MAX_FACTORS_PER_EXPERIMENT} factors "
-                       f"(found {len(discovered)})")
+                       f"(found {len(discovered)}). Skipped: {skipped}")
 
     results = []
-    for name in factor_names:
+    for i, name in enumerate(factor_names):
+        logger.info(f"Evaluating factor {i+1}/{len(factor_names)}: {name}")
         factor = discovered[name]
         try:
             factor_series = factor.compute(panel)
