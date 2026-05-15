@@ -6,6 +6,16 @@
 
 ---
 
+## 0. 可视化概要
+
+![Pareto Frontier](../assets/pareto_frontier.png)
+
+![Top Factors](../assets/top_factors.png)
+
+![Metric Correlations](../assets/metric_correlations.png)
+
+---
+
 ## 1. 实验概览
 
 本报告记录了 alpha_autoresearch 系统的首次自主实验运行。系统在 30 轮迭代中生成了 38 个量化因子（部分轮次生成了 2 个因子变体），探索了 12 个因子类别，涵盖动量、反转、波动率、量价关系、VWAP 等核心 Alpha101 模式。
@@ -148,13 +158,13 @@
 
 | 文件 | 描述 |
 |------|------|
-| `results.tsv` | 38 行实验结果（TSV 格式） |
 | `pareto_frontier.json` | 14 个帕累托前沿因子 |
+| `results.tsv` | 38 行实验结果（TSV 格式） |
 | `progress.log` | 完整运行日志 |
-| `results/pareto_frontier.png` | 前沿可视化（IC vs IR） |
-| `results/top_factors.png` | Top 10 因子柱状图 |
-| `results/metric_correlations.png` | 三维指标散点图 |
-| `results/SUMMARY.md` | 英文摘要 |
+| `assets/pareto_frontier.png` | 前沿可视化（IC vs IR） |
+| `assets/top_factors.png` | Top 10 因子柱状图 |
+| `assets/metric_correlations.png` | 三维指标散点图 |
+| `assets/SUMMARY.md` | 英文摘要 |
 
 ---
 

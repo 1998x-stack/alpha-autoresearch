@@ -93,6 +93,10 @@ Auto-discovered and evaluated on next `uv run python prepare.py`.
 | Best \|RankIC\| | 0.0581 (`hl_range`) |
 | Best \|IC IR\| | 0.49 (`ts_rank_vol`) |
 
+![Pareto Frontier](assets/pareto_frontier.png)
+
+![Top Factors](assets/top_factors.png)
+
 See **[REPORT.md](docs/REPORT.md)** for full analysis (Chinese).
 
 ---

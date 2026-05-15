@@ -62,9 +62,9 @@
 
 ## Visualizations
 
-![Pareto Frontier](results/pareto_frontier.png)
-![Top Factors](results/top_factors.png)
-![Metric Correlations](results/metric_correlations.png)
+![Pareto Frontier](pareto_frontier.png)
+![Top Factors](top_factors.png)
+![Metric Correlations](metric_correlations.png)
 
 ---
 
